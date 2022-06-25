@@ -37,7 +37,7 @@
 
 
 
-
+Currently this page is under correction. Please follow this page till then [here](https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_survival/BS704_Survival_print.html)
 
 
 
@@ -51,26 +51,24 @@
 ###
 
 # `[a] Introduction `
-Data contains two kinds of loan information: Good and Bad
+Suppose data contains two kinds of loan information: Good and Bad \
 A binary question: Can I say, whether the loan is good or bad,
-considering the customer profile
+considering the customer profile\
 Answer: Yes, by standard classification techniques (e.g. logistic
 regression, random forest, etc.)
-Question: When would the loan go bad?
-Question: Between two banks which one is possessing riskier
-loans?
-No answer by classification method.
-Answer is given by Survival Analysis
+Question: When would the loan go bad?\
+Question: Between two banks which one is possessing riskier loans? \
+No answer by classification method. Answer is given by Survival Analysis
 
 We model the time to failure [T ] data (or time-to-event data or
 survival data)
-Time from medication to relapse of leukemia
-When the leukemia will returned for a patient?
-Time from date of breast cancer detection to death of patient
-When the patient will die?
-Time from date of admission to death of patient
-When the patient will die?
-Time from loan approved to loan default
+- Time from medication to relapse of leukemia such as 
+When the leukemia will returned for a patient? 
+- Time from date of breast cancer detection to death of patient such as 
+When the patient will die? 
+- Time from date of admission to death of patient such as 
+When the patient will die? 
+- Time from loan approved to loan default such as 
 When the customer will be defaulter?
 
 
@@ -78,34 +76,32 @@ When the customer will be defaulter?
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-Survival Analysis: Left-Truncated Data
-Introduction: The random variable of most interest in survival analysis is time-to-event. Often in
-biomedical studies, the event is death. It is because of this common application the field is termed
+# Survival Analysis: 
+## Introduction: 
+       The random variable of most interest in survival analysis is time-to-event.
+ Often in biomedical studies, the event is death. It is because of this common application the field is termed
 Survival Analysis. Survival analysis methods can be applied to a wide range of data not just biomedical
 survival data. Other time-to-event data can include: time-to-relapse of a disease, length of stay in a
 hospital, duration of a strike, money paid by insurance company, time-to-employment (Klein), failure
 times of electrical components, etc. (Survival).
+
 There is generally a relatively short window for the duration of any study where the event is observed to
 occur or not occur. When the duration of study is small, adjustments must be made to account for
-potential biases. Useful data will be excluded when data is censored but not accounted for, and biases
-can be introduced when data is truncated. Since censoring and truncation are often confused, a brief
-discussion on censoring with examples is helpful to more fully understand left-truncation.
-There are three general types of censoring, right-censoring, left-censoring, and interval-censoring. The
-most common type of censoring encountered in survival analysis data is right censored (Survival). In our
-course, we adjusted our model for the herpes data to account for right censoring. It is called right
-censoring because the true unobserved event is to the right of the censoring time. Left-censoring occurs
-when we cannot observe the time when the event occurred. For obvious reasons if the event is death,
-the data can’t be left-censored. A good example is discussed in an ASA paper on survival analysis, “e.g.
+`potential biases`. Useful data will be excluded when data is `censored` but not accounted for, and biases
+can be introduced when data is `truncated`. Since censoring and truncation are often confused, a brief
+discussion on censoring with examples is helpful to more fully understand __`left-truncation`__.
+There are three general types of censoring, `right-censoring`, `left-censoring`, and `interval-censoring`. The
+most common type of censoring encountered in survival analysis data is `right censored (Survival)`. We adjusted our model for the herpes data to account for right censoring. It is called right censoring because the true unobserved event is to the right of the censoring time. Left-censoring occurs
+when we cannot observe the time when the event occurred. __For obvious reasons if the event is death,
+the data can’t be left-censored__. A good example is discussed in an ASA paper on survival analysis, “e.g.
 [a] study of age at which African children learn a task. Some already knew (left-censored), some learned
 during a study (exact), some had not yet learned by end of study (right-censored).” Interval-censoring is
 also discussed in Survival Analysis: Introduction (Survival).
-Truncation is due to sampling bias that only those individuals whose lifetimes lie within a certain interval
-can be observed. To further discuss left-truncation we will use the motivating example on the next
-page. A useful insight and directly applicable to the motivating example, “Age is often used as a
-covariate when it should be used as a left-truncation point. When age is used as a left-truncation point,
+__`Truncation`__ is due to sampling bias that only those individuals whose lifetimes lie within a certain interval
+can be observed. To further discuss left-truncation we will use the motivating example. A useful insight and directly applicable to the motivating example, “Age is often used as a covariate when it should be used as a left-truncation point. When age is used as a left-truncation point,
 it is unnecessary to use it as a covariate in the model” (Klein).
 
-Motivating Example: Survival data on 26 psychiatric inpatients admitted to the University of Iowa
+__Motivating Example:__ Survival data on 26 psychiatric inpatients admitted to the University of Iowa
 hospitals during the years 1935–1948. This sample is part of a larger study of psychiatric inpatients
 discussed by Tsuang and Woolson (1977). Data for each patient consists of age at first admission to the
 hospital, sex, number of years of follow-up (years from admission to death or censoring) and patient
@@ -116,28 +112,24 @@ displayed in the table below (Klein).
 The way we coded the variable death, death(0) indicates censoring time. It is important to adjust for
 left-truncation in this data because patients entered into the study (admitted to the hospital) have not
 died. This fact could bias the results, when results are compared to the general population of Iowa
-residents. We stratified by sex because many studies show women live longer than men so we want to
+residents. It is stratified by sex because many studies show women live longer than men so we want to
 compare by gender.
-The following is the code used to obtain Kaplan-Meier curves, graphical representations of survival
-estimates. Use of the proc phreg procedure for left-truncated data is discussed in Surviving Left
-Truncation Using PROC PHREG (Foreman)
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-However,
-one must take care in interpreting these statistics. For example, the
+One must take care in interpreting these statistics. For example, the
 Product-Limit estimator of the survival function at a time t is now an
 estimator of the probability of survival beyond t, conditional on survival
-to the smallest of the entry times L, Pr [X ⬎ t | X ⱖ L] ⫽ S (t) S (L).
+to the smallest of the entry times L, $Pr [X ⬎ t | X ⱖ L] ⫽ S (t) S (L)$.
 Similarly the Nelson–Aalen statistic estimates the integral of the hazard
 rate over the interval L to t. Note that the slope of the Nelson–Aalen
 estimator still provides an estimator of the unconditional hazard rate.
 Some care in directly applying these estimators is needed. For left-
 truncated data, it is possible for the number at risk to be quite small
-for small values of t i . If, for some t i , Y i and d i are equal, then, the
+for small values of $t_i$ . If, for some $t_i$ , $Y_i$ and $d_i$ are equal, then, the
 Product-Limit estimator will be zero for all t beyond this point, even
 though we are observing survivors and deaths beyond this point. In
 such cases, it is common to estimate the survival function conditional
